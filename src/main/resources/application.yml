@@ -1,0 +1,56 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: xBlog
+  redis:
+    host: localhost
+    port: 6379
+#    password: root
+    database: 0
+  cache:
+    redis:
+      #缓存的生命周期30分钟后死亡
+      time-to-live: 1800000
+  shardingsphere:
+    datasource:
+      names:
+        dev
+      dev:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/xblog?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+        username: root
+        password: xu20010922
+    props:
+      sql:
+        show: false #开启sql显示，默认为false
+  main:
+    allow-bean-definition-overriding: true #允许bean定义覆盖
+  #邮箱配置
+  mail:
+    # 设置邮箱主机
+    host: smtp.qq.com
+    # 开启邮箱POP3/SMTP服务，获取客户端授权码(注意并不是邮箱密码，而是授权码)
+    password: tacramuisaxuebhe
+    # 邮箱的用户名
+    username: xushihao123@qq.com
+    properties:
+      mail:
+        smtp:
+        # 设置是否需要认证，如果为true,那么用户名和密码就必须的。如果设置false，可以不设置用户名和密码，当然也得看你的对接的平台是否支持无密码进行访问的。
+          auth: true
+          starttls:
+          # STARTTLS[1]  是对纯文本通信协议的扩展。它提供一种方式将纯文本连接升级为加密连接（TLS或SSL），而不是另外使用一个端口作加密通信。
+            enable: true
+            require: true
+mybatis-plus:
+  configuration:
+    #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: Auto
+      table-underline: false # 设置表名不使用下划线方式
+

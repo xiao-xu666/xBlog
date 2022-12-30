@@ -21,7 +21,7 @@ spring:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/xblog?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
         username: root
-        password: xu20010922
+        password: root
     props:
       sql:
         show: false #开启sql显示，默认为false
@@ -32,9 +32,9 @@ spring:
     # 设置邮箱主机
     host: smtp.qq.com
     # 开启邮箱POP3/SMTP服务，获取客户端授权码(注意并不是邮箱密码，而是授权码)
-    password: tacramuisaxuebhe
+    password:
     # 邮箱的用户名
-    username: xushihao123@qq.com
+    username:
     properties:
       mail:
         smtp:

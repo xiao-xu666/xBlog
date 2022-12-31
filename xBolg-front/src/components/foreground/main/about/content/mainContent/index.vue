@@ -30,8 +30,11 @@
             <div class="content_box">
                 <p>学习过程中开发的一个小型项目，没有任何由来。喜欢的就多多支持一下吧！</p>
                 <p><b>建站时间：</b>2022年7月20日</p>
-                <p><b>开发技术：</b><b>前端：</b>H5、css3、原生js、vue3.0、Element Plus &nbsp;&nbsp;&nbsp;&nbsp; <b>后端：</b>Java
-                    &nbsp;&nbsp;&nbsp;&nbsp;<b>数据库：</b>Mysql 8.0</p>
+                <p>
+                    <b>开发技术：</b><br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>前端：</b>H5、css3、原生js、vue3.0、Element Plus<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>后端：</b>Java&nbsp;&nbsp;&nbsp;&nbsp;<b>数据库：</b>Mysql 8.0
+                </p>
             </div>
         </div>
         <div>

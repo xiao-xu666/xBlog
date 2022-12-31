@@ -99,7 +99,7 @@
         })
 
         // 查询全部文章
-        axios.get("/showAllArticleInfo").then(res => {
+        axios.get("/article/showAllArticleInfo").then(res => {
             res.data.data.forEach(element => {
                 // 筛选出系统设置总设置好的精选文章
                 state.technologyData.forEach(val => {

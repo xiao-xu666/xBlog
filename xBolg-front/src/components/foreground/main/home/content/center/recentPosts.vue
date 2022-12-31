@@ -152,7 +152,7 @@
         })
 
         // 查询全部文章
-        axios.get("/showAllArticleInfo").then(res => {
+        axios.get("/article/showAllArticleInfo").then(res => {
             // 筛选出系统设置总设置好的展示文章
             state.allArticleArr.forEach(val => {
                 res.data.data.forEach(element => {
@@ -177,7 +177,7 @@
         })
 
         // 查询全部文章   置顶文章
-        axios.get("/showAllArticleInfo").then(res => {
+        axios.get("/article/showAllArticleInfo").then(res => {
             res.data.data.forEach(element => {
                 // 时间戳格式化
                 element.publishTime = formatDate(element.publishTime);

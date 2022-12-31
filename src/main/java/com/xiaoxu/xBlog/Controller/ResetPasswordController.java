@@ -25,9 +25,10 @@ public class ResetPasswordController {
 
     @GetMapping("/showUserNameOrEmail")
     public ReturnResults hasUserByNameOrEmail(String userNameOrEmail){
+        UserInfo userInfo = null;
         LambdaQueryWrapper<UserInfo> qw = new LambdaQueryWrapper<>();
         qw.eq(!StringUtils.isEmpty(userNameOrEmail),UserInfo::getUserName,userNameOrEmail).or().eq(!StringUtils.isEmpty(userNameOrEmail),UserInfo::getUserEmail,userNameOrEmail);
-        UserInfo userInfo = userService.getOne(qw);
+        userInfo =  userService.getOne(qw);
         if (userInfo == null) {
             return ReturnResults.error("错误，该用户不存在");
         }
@@ -37,12 +38,13 @@ public class ResetPasswordController {
 
     @GetMapping("/updateUserPass")
     @Transactional
-    public ReturnResults updateUserPass(String userPass,String userEmail){
+    public ReturnResults updateUserPass(UserInfo userInfo){
         LambdaQueryWrapper<UserInfo> qw = new LambdaQueryWrapper<>();
-        qw.eq(UserInfo::getUserEmail,userEmail);
-        UserInfo userInfo = new UserInfo();
-        userInfo.setUserPass(userPass);
+        qw.eq(UserInfo::getUserEmail,userInfo.getUserEmail());
         boolean b = userService.update(userInfo,qw);
+        if (b) {
+            redisTemplate.opsForValue().set("user",userService.getOne(qw));
+        }
         return b?ReturnResults.success("更新成功"):ReturnResults.error("更新失败");
     }
 }

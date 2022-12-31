@@ -201,7 +201,7 @@ import { env } from 'echarts'
 
             // 查询文章信息
             const getArticleInfo = () => {
-                axios.get("/showAllArticleInfo").then(res => {
+                axios.get("/article/showAllArticleInfo").then(res => {
                     res.data.data.forEach(element => {
                         // 将时间戳转为时间格式
                         var date = function (time) {

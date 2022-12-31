@@ -183,7 +183,7 @@
      */
     function loadData(state) {
         // 查询全部文章
-        axios.get("/showAllArticleInfo").then(res => {
+        axios.get("/article/showAllArticleInfo").then(res => {
             // 全部文章信息
             res.data.data.forEach(element => {
                 state.articleInfo.unshift({

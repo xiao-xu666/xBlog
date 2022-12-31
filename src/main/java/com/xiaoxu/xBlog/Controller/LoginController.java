@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/login")
 public class LoginController {
     @Autowired
     private LoginService loginService;
     @Autowired
     private RedisTemplate redisTemplate;
 
-    @GetMapping("/showUserInfo")
+    @GetMapping("/login")
     public ReturnResults showUserInfo(String loginName, String loginPass) {
         UserInfo userInfo = loginService.getUserInfoByNameOrEmail(loginName);
         if (userInfo == null) {
@@ -31,6 +30,12 @@ public class LoginController {
             return ReturnResults.success(userInfo);
         }
         return ReturnResults.error("用户名或密码错误，请仔细检查其是否正确");
+    }
+
+    @GetMapping("/logout")
+    public ReturnResults logout(){
+        redisTemplate.delete("user");
+        return ReturnResults.success("已安全退出登录");
     }
 
 

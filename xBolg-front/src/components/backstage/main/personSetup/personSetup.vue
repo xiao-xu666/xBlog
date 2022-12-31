@@ -509,7 +509,7 @@
                                         loginName: state.basic.userName,
                                         loginPass: state.userInfo.userPass,
                                     };
-                                    axios.get("/login/showUserInfo", {
+                                    axios.get("/login", {
                                         params
                                     }).then((res) => {
                                         if (res.data.code == "0") {
@@ -679,7 +679,7 @@
                                             loginName: state.userInfo.userName,
                                             loginPass: state.userInfo.userPass,
                                         };
-                                        axios.get("/login/showUserInfo", {
+                                        axios.get("/login", {
                                             params
                                         }).then((res) => {
                                             if (res.data.code == "0") {
@@ -736,7 +736,7 @@
                                                 loginName: state.userInfo.userName,
                                                 loginPass: state.modify.newPass,
                                             };
-                                            axios.get("/login/showUserInfo", {
+                                            axios.get("/login", {
                                                 params
                                             }).then((res) => {
                                                 if (res.data.code == "0") {

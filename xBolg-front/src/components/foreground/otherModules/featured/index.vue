@@ -119,7 +119,7 @@
         })
 
         // 查询全部文章
-        axios.get("/showAllArticleInfo").then(res => {
+        axios.get("/article/showAllArticleInfo").then(res => {
             state.featuredData.forEach(val => {
                 res.data.data.forEach(element => {// 筛选出系统设置中设置好的精选文章
                     if (element.articleId === val) {

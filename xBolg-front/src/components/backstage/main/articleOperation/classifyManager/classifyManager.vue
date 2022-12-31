@@ -144,8 +144,13 @@
         state.loading = true
 
         axios.get("/showAllClassifyInfo").then(res => {
-            state.tableData = res.data.data;
-            state.loading = false
+            if(res.data.code == 0){
+                state.tableData = res.data.data;
+                state.loading = false
+            }else{
+                ElMessage.error(res.data.msg)
+            }
+            
         })
     }
     export default {
@@ -218,11 +223,7 @@
                         //重新加载数据
                         loadData(state);
                     } else {
-                        ElMessage({
-                            showClose: true,
-                            message: '分类删除失败',
-                            type: 'error',
-                        })
+                        ElMessage.error(res.data.msg)
                     }
                 })
             };
@@ -255,6 +256,8 @@
                             }
                             // 更新数据
                             loadData(state);
+                        }else{
+                            ElMessage.error(res.data.msg)
                         }
                     })
                 } else {

@@ -199,7 +199,7 @@
                                     loginName: state.ruleForm.loginName,
                                     loginPass: state.ruleForm.loginPass,
                                 };
-                                axios.get("/login/showUserInfo", {
+                                axios.get("/login", {
                                     params
                                 }).then((res) => {
                                     if (res.data.code == "0") {

@@ -45,14 +45,13 @@ public class ArticleController {
     @GetMapping("/showAllArticleInfo")
     public ReturnResults showAllArticleInfo(){
         List<ArticleInfo> list = null;
-        UserInfo user = (UserInfo) redisTemplate.opsForValue().get("user");
-        list = (List<ArticleInfo>) redisTemplate.opsForValue().get("article_showAllArticleInfo_"+user.getUserId());
+        list = (List<ArticleInfo>) redisTemplate.opsForValue().get("article_showAllArticleInfo");
         if (list != null) {
             return ReturnResults.success(list);
         }
         try {
-            list = articleService.showAllArticleInfoByCheckState(user);
-            redisTemplate.opsForValue().set("article_showAllArticleInfo_"+user.getUserId(),list,5,TimeUnit.HOURS);
+            list = articleService.showAllArticleInfo();
+            redisTemplate.opsForValue().set("article_showAllArticleInfo",list,5,TimeUnit.HOURS);
             return ReturnResults.success(list);
         }catch (Exception e){
             return ReturnResults.error(e.getMessage());
@@ -128,26 +127,26 @@ public class ArticleController {
     @GetMapping("/showArticleInfo")
     public ReturnResults showArticleInfoByArticleId(Integer articleId){
         ArticleInfo articleInfo = null;
-        articleInfo = (ArticleInfo) redisTemplate.opsForValue().get("article_showArticleInfo");
+        articleInfo = (ArticleInfo) redisTemplate.opsForValue().get("article_showArticleInfo_"+articleId);
         if (articleInfo != null) {
             return ReturnResults.success(articleInfo);
         }
         articleInfo= articleService.getById(articleId);
-        redisTemplate.opsForValue().set("article_showArticleInfo",articleInfo,5, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set("article_showArticleInfo"+articleId,articleInfo,5, TimeUnit.HOURS);
         return ReturnResults.success(articleInfo);
     }
     @GetMapping("/updateArticleClick")
     @Transactional
     public ReturnResults updateArticleClick(Integer articleId){
         UserInfo user = (UserInfo) redisTemplate.opsForValue().get("user");
-        Boolean isClicked = (Boolean) redisTemplate.opsForValue().get("updateArticleClick_userId_" + user.getUserId());
+        Boolean isClicked = (Boolean) redisTemplate.opsForValue().get("updateArticleClick_userId_"+user.getUserId()+"_"+articleId);
         if (isClicked != null && isClicked == true) {
             return ReturnResults.success("当前用户今日浏览已添加，请勿重复添加");
         }
         ArticleInfo info = articleService.getById(articleId);
         info.setClick(info.getClick()+1);
         if(articleService.updateById(info)){
-            redisTemplate.opsForValue().set("updateArticleClick_userId_"+user.getUserId(),true,1,TimeUnit.DAYS);
+            redisTemplate.opsForValue().set("updateArticleClick_userId_"+user.getUserId()+"_"+articleId,true,1,TimeUnit.DAYS);
         }else{
             return ReturnResults.error("添加失败");
         }
@@ -203,5 +202,11 @@ public class ArticleController {
         } catch (Exception e) {
             return ReturnResults.error(e.getMessage());
         }
+    }
+
+    @GetMapping("/checkUserPrivileges")
+    public ReturnResults checkUserPrivileges(Integer articleId){
+        UserInfo user = (UserInfo) redisTemplate.opsForValue().get("user");
+        return articleService.checkUserPrivileges(user, articleId);
     }
 }

@@ -11,13 +11,7 @@ public interface ArticleService extends IService<ArticleInfo> {
 
     void removeByIdByChecked(Integer articleId) throws Exception;
 
-    List<ArticleInfo> showAllArticleInfoByCheckState(UserInfo user);
+    List<ArticleInfo> showAllArticleInfo();
 
-    List<ArticleInfo> showPageArticlesWithCheck(Integer currentPage,
-                                                Integer pageSize,
-                                                String keyword,
-                                                Integer userType,
-                                                Integer userId,
-                                                Integer articlePass,
-                                                String articleTitle);
+    ReturnResults checkUserPrivileges(UserInfo user, Integer articleId);
 }

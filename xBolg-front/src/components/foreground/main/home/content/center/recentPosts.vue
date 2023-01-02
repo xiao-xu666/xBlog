@@ -174,10 +174,8 @@
                 })
             });
             state.loading2 = false;
-        })
 
-        // 查询全部文章   置顶文章
-        axios.get("/article/showAllArticleInfo").then(res => {
+            // 查询全部文章   置顶文章
             res.data.data.forEach(element => {
                 // 时间戳格式化
                 element.publishTime = formatDate(element.publishTime);

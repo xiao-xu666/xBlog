@@ -43,28 +43,39 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleInfoDAO, ArticleInfo>
     }
 
     @Override
-    public List<ArticleInfo> showAllArticleInfoByCheckState(UserInfo user) {
-        LambdaQueryWrapper<ArticleInfo> qw = new LambdaQueryWrapper<>();
-        qw.eq(ArticleInfo::getArticleState, 1);
-        List<ArticleInfo> list = this.list(qw);
+    public List<ArticleInfo> showAllArticleInfo() {
+        List<ArticleInfo> list = this.list();
         if (list == null && list.size() == 0) {
             throw new RuntimeException("系统异常，文章数据丢失!");
-        }
-        qw.eq(ArticleInfo::getArticleState, 2);
-        List<ArticleInfo> list2 = this.list(qw);
-        if (list2 != null) {
-            for (ArticleInfo articleInfo : list2) {
-                if(articleInfo.getUserId() == user.getUserId()){
-                    list.add(articleInfo);
-                }
-            }
         }
         return list;
     }
 
     @Override
-    public List<ArticleInfo> showPageArticlesWithCheck(Integer currentPage, Integer pageSize, String keyword, Integer userType, Integer userId, Integer articlePass, String articleTitle) {
-
-        return null;
+    public ReturnResults checkUserPrivileges(UserInfo user, Integer articleId) {
+        if (user != null) {
+            if (user.getUserType() == 0){
+                return ReturnResults.success(true);
+            }else{
+                ArticleInfo articleInfo = this.getById(articleId);
+                if(articleInfo.getArticlePass() == 2 && articleInfo.getArticleState() == 1){
+                    return ReturnResults.success(true);
+                } else if (articleInfo.getArticlePass() == 2) {
+                    if (articleInfo.getUserId().toString().equals(user.getUserId().toString())) {
+                        return ReturnResults.success(true);
+                    }else{
+                        return ReturnResults.error("对不起，你的权限不足以观看此篇文章");
+                    }
+                }else{
+                    return ReturnResults.error("对不起，你的权限不足以观看此篇文章");
+                }
+            }
+        }else{
+            ArticleInfo articleInfo = this.getById(articleId);
+            if(articleInfo.getArticlePass() == 2 && articleInfo.getArticleState() == 1) {
+                return ReturnResults.success(true);
+            }
+            return ReturnResults.error("对不起，你的权限不足以观看此篇文章");
+        }
     }
 }

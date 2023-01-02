@@ -6,6 +6,7 @@ import com.xiaoxu.xBlog.DAO.ArticleInfoDAO;
 import com.xiaoxu.xBlog.Entities.ArticleInfo;
 import com.xiaoxu.xBlog.Entities.ClassifyInfo;
 import com.xiaoxu.xBlog.Entities.CommentInfo;
+import com.xiaoxu.xBlog.Entities.UserInfo;
 import com.xiaoxu.xBlog.Service.ArticleService;
 import com.xiaoxu.xBlog.Service.ClassifyService;
 import com.xiaoxu.xBlog.Service.CommentService;
@@ -35,10 +36,35 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleInfoDAO, ArticleInfo>
             if(!commentService.removeByIds(idList)){
                 throw new RuntimeException("系统异常,删除失败");
             }
-
         }
         if(!this.removeById(articleId)){
             throw new RuntimeException("系统异常,删除失败");
         }
+    }
+
+    @Override
+    public List<ArticleInfo> showAllArticleInfoByCheckState(UserInfo user) {
+        LambdaQueryWrapper<ArticleInfo> qw = new LambdaQueryWrapper<>();
+        qw.eq(ArticleInfo::getArticleState, 1);
+        List<ArticleInfo> list = this.list(qw);
+        if (list == null && list.size() == 0) {
+            throw new RuntimeException("系统异常，文章数据丢失!");
+        }
+        qw.eq(ArticleInfo::getArticleState, 2);
+        List<ArticleInfo> list2 = this.list(qw);
+        if (list2 != null) {
+            for (ArticleInfo articleInfo : list2) {
+                if(articleInfo.getUserId() == user.getUserId()){
+                    list.add(articleInfo);
+                }
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<ArticleInfo> showPageArticlesWithCheck(Integer currentPage, Integer pageSize, String keyword, Integer userType, Integer userId, Integer articlePass, String articleTitle) {
+
+        return null;
     }
 }

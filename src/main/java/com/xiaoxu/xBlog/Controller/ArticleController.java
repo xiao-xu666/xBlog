@@ -45,13 +45,18 @@ public class ArticleController {
     @GetMapping("/showAllArticleInfo")
     public ReturnResults showAllArticleInfo(){
         List<ArticleInfo> list = null;
-        list = (List<ArticleInfo>) redisTemplate.opsForValue().get("article_showAllArticleInfo");
+        UserInfo user = (UserInfo) redisTemplate.opsForValue().get("user");
+        list = (List<ArticleInfo>) redisTemplate.opsForValue().get("article_showAllArticleInfo_"+user.getUserId());
         if (list != null) {
             return ReturnResults.success(list);
         }
-        list = articleService.list();
-        redisTemplate.opsForValue().set("article_showAllArticleInfo",list,5,TimeUnit.HOURS);
-        return ReturnResults.success(list);
+        try {
+            list = articleService.showAllArticleInfoByCheckState(user);
+            redisTemplate.opsForValue().set("article_showAllArticleInfo_"+user.getUserId(),list,5,TimeUnit.HOURS);
+            return ReturnResults.success(list);
+        }catch (Exception e){
+            return ReturnResults.error(e.getMessage());
+        }
     }
 
     @GetMapping("/showArticleCount")

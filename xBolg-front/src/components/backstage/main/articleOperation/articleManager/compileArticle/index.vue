@@ -98,11 +98,7 @@
                 placeholder="请选择文章分类"
                 size="large"
               >
-                <el-option
-                  v-for="item in classifyInfo"
-                  :label="item.classifyName"
-                  :value="item.classifyId"
-                />
+                <el-option v-for="item in classifyInfo" :label="item.classifyName" :value="item.classifyId"/>
               </el-select>
               <p>选择分类可让读者更便捷的查找文章</p>
             </div>
@@ -178,7 +174,8 @@ import { ElMessage, ElNotification, ElMessageBox } from "element-plus";
 
 import axios from "axios";
 
-import fileUploadUtils from "@/js/fileUploadUtils";
+
+import {check,fileUpload} from "@/js/fileUploadUtils";
 
 function loadData(state) {
   // 查询文章分类
@@ -239,21 +236,7 @@ export default {
     };
     editorConfig.MENU_CONF["uploadVideo"] = {
       async customUpload(file, insertFn) {
-            // const filePath = process.env.VUE_APP_URL + "/fileUpload"
-            // let pieceSize = 10 * 1024 * 1024;
-            // const requestList = fileUploadUtils.slice(file,pieceSize)
-            // for(const pieceFile of requestList){
-            //   axios.post(filePath, pieceFile).then((res) => {
-            //     if(res.data.code == 0){
-            //       insertFn(res.data.data);
-            //     }else{
-            //       ElMessage.error(res.data.message);
-            //     }
-            //   }).catch((err) => {
-            //       ElMessage.error(`${file.name} 上传失败`);
-            //   })
-            // }
-            ElMessage.error(`${file.name} 上传失败,该功能暂未开发!`);
+            check(file,insertFn)
         },
     };
     editorConfig.MENU_CONF["codeSelectLang"] = {

@@ -31,9 +31,9 @@ public class ArticleInfo implements Serializable {
     private String articleContent; // 文章内容
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date publishTime; // 发表时间
-    private Integer articlePass; // 审核状态
-    private Integer articleState; // 文章状态 所有人 仅自己
-    private Integer commentState;// 评论状态 开启 关闭
+    private Integer articlePass; // 审核状态  2通过
+    private Integer articleState; // 文章状态 1所有人 2仅自己
+    private Integer commentState;// 评论状态 1开启 2关闭
     private Integer click; // 阅读次数
     private Integer review; // 评论次数
     /**

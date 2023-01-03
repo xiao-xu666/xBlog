@@ -6,10 +6,9 @@ import com.xiaoxu.xBlog.Utils.ReturnResults;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import lombok.extern.log4j.Log4j;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

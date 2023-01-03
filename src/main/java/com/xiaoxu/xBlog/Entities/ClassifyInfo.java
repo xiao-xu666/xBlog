@@ -1,12 +1,13 @@
 package com.xiaoxu.xBlog.Entities;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
+@TableName(value = "classifyinfo")
 public class ClassifyInfo implements Serializable {
 
     private static final long serialVersionUID = 9L;

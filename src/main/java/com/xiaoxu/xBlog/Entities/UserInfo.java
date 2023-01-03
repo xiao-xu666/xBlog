@@ -1,14 +1,15 @@
 package com.xiaoxu.xBlog.Entities;
 
-import com.baomidou.mybatisplus.annotation.TableField;
+
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
 @Data
+@TableName(value = "userinfo")
 public class UserInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,6 +24,5 @@ public class UserInfo implements Serializable {
     private Date userRegdate; // 注册时间
     private String userSignature; // 个性签名
     private String userIcon; // 个人头像
-//    @TableLogic(value = "0",delval = "1")
     private Integer state; //状态  0:正常  1: 冻结
 }

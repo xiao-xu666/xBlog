@@ -30,15 +30,17 @@ module.exports = defineConfig({
         https: false,
         open: true,
         allowedHosts: 'all',
-        proxy: {
-            '/api': {
-                target: 'http://localhost:8080/',
-                changeOrigin: true,
-                pathRewrite: {
-                    '/api': ''
-                }
-            }
-        }
+        // proxy: {
+        //     '/api': {
+        //         target: 'http://8.130.39.152:8080/',
+        //         changeOrigin: true,
+        //         pathRewrite: {
+        //             '^/api': '/',
+        //             //pathRewrite: {'^/api': '/'} 重写之后url为 http://localhost:8080/xxxx
+        //             //pathRewrite: {'^/api': '/api'} 重写之后url为http://localhost:8080/api/xxxx
+        //           },
+        //     }
+        // }
     },
     transpileDependencies: true,
     lintOnSave: false,

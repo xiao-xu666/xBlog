@@ -1,9 +1,6 @@
 package com.xiaoxu.xBlog.Entities;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -13,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@TableName(value = "articleinfo")
 public class ArticleInfo implements Serializable {
 
     private static final long serialVersionUID = 11L;

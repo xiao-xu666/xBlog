@@ -2,10 +2,7 @@ package com.xiaoxu.xBlog.Controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.xiaoxu.xBlog.Entities.ArticleInfo;
 import com.xiaoxu.xBlog.Entities.CommentInfo;
-import com.xiaoxu.xBlog.Entities.UserInfo;
-import com.xiaoxu.xBlog.Exception.CustomerException;
 import com.xiaoxu.xBlog.Service.CommentService;
 import com.xiaoxu.xBlog.Utils.ReturnResults;
 import org.apache.commons.lang.StringUtils;

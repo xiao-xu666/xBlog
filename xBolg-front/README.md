@@ -1,4 +1,4 @@
-# bpvank-front-end
+# xBlog-front
 
 ## Project setup
 ```

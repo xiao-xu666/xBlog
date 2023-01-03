@@ -2,9 +2,7 @@ package com.xiaoxu.xBlog.Controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import com.xiaoxu.xBlog.Entities.ArticleInfo;
-import com.xiaoxu.xBlog.Entities.CommentInfo;
 import com.xiaoxu.xBlog.Entities.UserInfo;
 import com.xiaoxu.xBlog.Service.ArticleService;
 import com.xiaoxu.xBlog.Utils.ReturnResults;

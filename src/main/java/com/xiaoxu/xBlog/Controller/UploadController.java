@@ -5,7 +5,6 @@ import com.xiaoxu.xBlog.Service.FileService;
 import com.xiaoxu.xBlog.Utils.ReturnResults;
 import com.xiaoxu.xBlog.Utils.UploadUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;

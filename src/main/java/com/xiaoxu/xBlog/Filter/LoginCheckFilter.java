@@ -1,8 +1,11 @@
 package com.xiaoxu.xBlog.Filter;
 
 import com.alibaba.fastjson.JSON;
+import com.xiaoxu.xBlog.Entities.UserInfo;
 import com.xiaoxu.xBlog.Utils.ReturnResults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.*;
@@ -18,6 +21,9 @@ public class LoginCheckFilter implements Filter {
     //路径匹配器（可支持通配符）
     public static final AntPathMatcher PATH_MATCHER = new AntPathMatcher();
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -31,20 +37,35 @@ public class LoginCheckFilter implements Filter {
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers","Access-Control-Allow-Headers, content-type,x-requested-with,Authorization, x-ui-request,lang");
 
-        if (true){
-            filterChain.doFilter(request,response);
-            return;
-        }
-
 
         //定义不需要处理的请求路径
         String[] urls = new String[]{
-                "/employee/login",
-                "/employee/logout",
-                "/user/sendMsg",
-                "/user/login",
-                "/backend/**",
-                "/front/**"
+                "/article/showArticleInfo",
+                "/article/byClassifyId",
+                "/article/showArticleCountByUserId",
+                "/article/showAllArticleInfo",
+                "/article/showArticleCount",
+                "/article/page",
+                "/article/checkUserPrivileges",
+                "/backStageMenuInfo",
+                "/classify/showClassifyInfoByClassifyId",
+                "/comment/count",
+                "/comment/page",
+                "showAllClassifyInfo",
+                "showCommentByArticleId",
+                "showAllSystemSetup",
+                "/message/pageShow",
+                "/message/insert",
+                "/register/showUserName",
+                "/register/showUserEmail",
+                "/register/insertRegisterInfo",
+                "/url/showAllUrlInfo",
+                "/url/showUrlPage",
+                "/user/",
+                "/logout",
+                "/sendEmail",
+                "/login",
+                "/**",
         };
         //1.获取本次请求的URI
         String requestURI = request.getRequestURI();
@@ -57,20 +78,13 @@ public class LoginCheckFilter implements Filter {
             return;
         }
         //4.判断登录状态，如果已经登录，则直接放行
-        Long employeeId = (Long) request.getSession().getAttribute("employee");
-        if (employeeId != null){
+        UserInfo userInfo = (UserInfo) redisTemplate.opsForValue().get("user");
+        if (userInfo != null){
             filterChain.doFilter(request,response);
              return;
          }
-
-        Long userId = (Long) request.getSession().getAttribute("user");
-        if (userId != null){
-            filterChain.doFilter(request,response);
-            return;
-        }
         //5.如果未登录则返回未登录结果
-        response.getWriter().write(JSON.toJSONString(ReturnResults.error("NOTLOGIN")));
-         return;
+        response.sendRedirect("/login");
     }
 
     /**

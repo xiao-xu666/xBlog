@@ -5,24 +5,6 @@ const glob = require('glob')
 
 const CompressionPlugin = require('compression-webpack-plugin');//引入gzip压缩插件
 
-function getEntry() {
-    let entrys = {}
-    // 获取pages目录下后缀为html的路径
-    glob.sync('./src/pages/**?/*.html').forEach(item => {
-        // 获取页面匹配名称
-        let urlArr = item.split('/').splice(-3)
-        entrys[urlArr[1]] = {
-            entry: 'src/pages/' + urlArr[1] + '/index.js',
-            template: 'src/pages/' + urlArr[1] + '/index.html',
-            filename: urlArr[1] + '.html',
-            title: 'pages-' + urlArr[1]
-        }
-    })
-    return entrys
-}
-
-let pages = getEntry()
-
 module.exports = defineConfig({
     devServer: {
         port: 80,
@@ -30,17 +12,15 @@ module.exports = defineConfig({
         https: false,
         open: true,
         allowedHosts: 'all',
-        // proxy: {
-        //     '/api': {
-        //         target: 'http://8.130.39.152:8080/',
-        //         changeOrigin: true,
-        //         pathRewrite: {
-        //             '^/api': '/',
-        //             //pathRewrite: {'^/api': '/'} 重写之后url为 http://localhost:8080/xxxx
-        //             //pathRewrite: {'^/api': '/api'} 重写之后url为http://localhost:8080/api/xxxx
-        //           },
-        //     }
-        // }
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8080/',
+                changeOrigin: true,
+                pathRewrite: {
+                    '/api': ''
+                }
+            }
+        }
     },
     transpileDependencies: true,
     lintOnSave: false,

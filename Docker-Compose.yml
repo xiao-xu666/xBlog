@@ -1,0 +1,34 @@
+version "3"
+
+services:
+  nginx: #服务名称
+    image: nginx:latest
+    ports:
+      -80:80
+    volumes:
+      - /home/lib/nginx/html:/usr/share/nginx/html
+      - /home/lib/nginx/nginx.conf:/etc/nginx/nginx.conf
+    privileged: true #必须要，解决nginx文件调用权限问题
+  mysql:
+    image: mysql:8.0.1
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    volumes:
+      - /home/lib/redis/data:/data
+      - /home/lib/redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - /home/lib/redis/logs:/logs
+    command: redis-server --requirepass root
+  xblog:
+    image: xblog:latest
+    build:
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+      - redis

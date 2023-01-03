@@ -1,24 +1,22 @@
 # xBlog-front
 
-## Project setup
-```
-yarn install
-```
+> 一个前后端分离项目
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## Build Setup
 
-### Compiles and minifies for production
-```
-yarn build
-```
+``` bash
+# install dependencies
+npm install
 
-### Lints and fixes files
-```
-yarn lint
-```
+# serve with hot reload at localhost:8080
+npm run serve
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+
+# run all tests
+npm test
+```

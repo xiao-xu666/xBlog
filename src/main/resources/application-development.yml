@@ -1,0 +1,26 @@
+spring:
+  redis:
+    host: redis
+    port: 6379
+#    password: root  #redis 密码
+    database: 0
+  cache:
+    redis:
+      #缓存的生命周期30分钟后死亡
+      time-to-live: 1800000
+  shardingsphere:
+    datasource:
+      name: master
+      master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://mysql:3306/xblog?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+        username: root
+        password: root
+  mail:
+    # 设置邮箱主机
+    host: smtp.qq.com #QQ邮箱
+    # 开启邮箱POP3/SMTP服务，获取客户端授权码(注意并不是邮箱密码，而是授权码)
+    password: #授权码
+    # 邮箱的用户名
+    username: #邮箱用户名

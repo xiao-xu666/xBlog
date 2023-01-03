@@ -1,5 +1,5 @@
 // 完成和路由相关更多工作
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
 
 const routes = [
   {
